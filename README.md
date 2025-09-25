@@ -54,6 +54,10 @@ The protocol team fixed this issue in the following PRs/commits:
 https://github.com/malda-protocol/malda-lending/pull/103
 
 
+**CergyK**
+
+Fix looks good, now `params.receiver` is forced to be equal to `_market`
+
 
 
 # Issue M-1: Wrong direction of rounding in redeem may lead to drain if exchange rate grows large 
@@ -61,7 +65,7 @@ https://github.com/malda-protocol/malda-lending/pull/103
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/81 
 
 ## Found by 
-Bobai23, DDEENNY, HeckerTrieuTien, InquisitorScythe, JeRRy0422, TECHFUND-inc, ZanyBonzy, cergyk, davies0212, joicygiore, tedox
+cergyk
 
 ## Description
 
@@ -161,6 +165,10 @@ The protocol team fixed this issue in the following PRs/commits:
 https://github.com/malda-protocol/malda-lending/pull/117
 
 
+**CergyK**
+
+Fix looks good, redeem underlying now rounds up, in favor of the protocol
+
 
 
 # Issue M-2: First depositor can brick market by forcing very large borrow rate 
@@ -170,7 +178,7 @@ Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/86
 This issue has been acknowledged by the team but won't be fixed at this time.
 
 ## Found by 
-LeFy, cergyk
+Bobai23, Kvar, LeFy, cergyk, dan\_\_vinci
 
 ### Description
 
@@ -261,7 +269,7 @@ Consider bounding the utilization to be at most 1e18 (100%), which would avoid h
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/91 
 
 ## Found by 
-0xapple, 10ap17, Angry\_Mustache\_Man, LeFy, WillyCode20, cergyk, elolpuer, pashap9990, v10g1, vangrim
+10ap17, Angry\_Mustache\_Man, LeFy, WillyCode20, cergyk, elolpuer, pashap9990, vangrim
 
 ### Description
 
@@ -306,12 +314,26 @@ Underlying amount should be divided by exchange rate to have a correct slippage 
 ```
 
 
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/malda-protocol/malda-lending/pull/120
+
+
+**CergyK**
+
+Fix looks good, underlying was converted to shares using exchangeRate
+
+
+
 # Issue M-4: Blacklist can be completely bypassed on outHere endpoint in mTokenGateway 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/96 
 
 ## Found by 
-0xEkko, 0xKann, 5am, 8olidity, JeRRy0422, PeterSR, TopStar, ZanyBonzy, Ziusz, blockace, bulgari, cergyk, dimulski, gh0xt, joicygiore, kelvinclassic11
+0xEkko, 0xKann, 5am, 8olidity, JeRRy0422, Kvar, PeterSR, TopStar, ZanyBonzy, Ziusz, blockace, bulgari, cergyk, dimulski, gh0xt, joicygiore, kelvinclassic11
 
 ### Description
 
@@ -369,8 +391,12 @@ Add an additional check for _sender to not be in blacklist:
 **sherlock-admin2**
 
 The protocol team fixed this issue in the following PRs/commits:
-https://github.com/malda-protocol/malda-lending/pull/111
+https://github.com/malda-protocol/malda-lending/pull/112
 
+
+**CergyK**
+
+Fix looks good
 
 
 
@@ -428,6 +454,10 @@ The protocol team fixed this issue in the following PRs/commits:
 https://github.com/malda-protocol/malda-lending/pull/119/files
 
 
+**CergyK**
+
+Fix looks good, only 1 destination chain allowed now
+
 
 
 # Issue M-6: `EverclearBridge` does not pull tokens from the Rebalancer, causing all rebalancing operations to fail 
@@ -481,13 +511,15 @@ The protocol team fixed this issue in the following PRs/commits:
 https://github.com/malda-protocol/malda-lending/pull/105
 
 
+**CergyK**
+
+Fix looks good. Tokens are now pulled from Rebalancer into EverclearBridge
+
 
 
 # Issue M-7: Incorrect transfer size validation after time window reset can lead to rebalancing DoS 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/234 
-
-This issue has been acknowledged by the team but won't be fixed at this time.
 
 ## Found by 
 0x213, 0xBlackie, 0xEkko, 0xShoonya, 0xSolus, 0xapple, 0xmechanic, 10ap17, 5am, 7, 8olidity, BADROBINX, Bizarro, Cybrid, DeveloperX, EQUATION, HeckerTrieuTien, Ivcho332, KiroBrejka, LeFy, MacroWang, PratRed, RaiseUp, Sparrow\_Jac, WillyCode20, Yaneca\_b, ZanyBonzy, Ziusz, axelot, coin2own, dan\_\_vinci, davies0212, djshaneden, dreamcoder, elolpuer, elyas, farismaulana, gh0xt, har0507, harry, magbeans9, mahdifa, maxim371, onudasatoshi, oxelmiguel, oxwhite, pollersan, sheep, softdev0323, swarun, teoslaf1, v10g1, vangrim, who\_is\_rp, yoooo, zach223
@@ -548,9 +580,25 @@ _No response_
 
 _No response_
 
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/malda-protocol/malda-lending/pull/138
+
+
+**CergyK**
+
+Fix looks good
+
+
+
 # Issue M-8: mErc20Host: It is not possible to permissionlessly call "external" endpoints when source chain is Eth mainnet, because l1Inclusion flag cannot be set to true 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/264 
+
+This issue has been acknowledged by the team but won't be fixed at this time.
 
 ## Found by 
 LeFy, cergyk, pyk
@@ -710,6 +758,18 @@ function _verifyProof(bytes calldata journalData, bytes calldata seal) internal 
 }
 ```
 
+## Discussion
+
+**Barnadrot**
+
+Acknowledged: 
+
+We wont fix as the intended/crucial and required use-case for self-sequencing is permissionless exit which requires proving Linea state. 
+
+The fix is extensive and we have further proof upgrades required by external circumstances, therefore this is going to be remedied in a future version where self-sequencing latency and centralized sequencer latency is closer together. 
+
+
+
 # Issue M-9: The rebalancing system is broken when everclear bridge contract is used 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/304 
@@ -839,14 +899,185 @@ The protocol team fixed this issue in the following PRs/commits:
 https://github.com/malda-protocol/malda-lending/pull/114/files
 
 
+**CergyK**
+
+Fix looks good
 
 
-# Issue M-10: There is no endpoint for triggering `liquidateExternal` from extension chain to be executed by proof forwarder 
+
+# Issue M-10: Unenforced maxFee and ttl Parameters in sendMsg Function 
+
+Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/317 
+
+## Found by 
+0xsai, yoooo
+
+### Summary
+
+In the [EverclearBridge](https://github.com/sherlock-audit/2025-07-malda/blob/main/malda-lending/src/rebalancer/bridges/EverclearBridge.sol#L79) which is used by rebalancer to send cross-chain intents using `Everclear` does not enforce that the `maxFee` and `ttl` parameters are set to 0, as required for the netting pathway. The Everclear documentation specifies that rebalancers must use the netting pathway, where maxFee == 0 (no solver fees) and ttl == 0 (immediate processing by the hub). However, the contract passes these parameters to everclearFeeAdapter.newIntent without validation, allowing non-zero values that could misroute intents to the unsupported solver pathway. 
+
+
+
+
+
+### Root Cause
+
+The `sendMsg` function in `EverclearBridge.sol`  lacks validation checks to ensure `params.maxFee == 0 and params.ttl == 0` before calling everclearFeeAdapter.newIntent as specified in the everclear docs..
+```solidity
+    function sendMsg(
+        uint256 _extractedAmount,
+        address _market,
+        uint32 _dstChainId,
+        address _token,
+        bytes memory _message,
+        bytes memory // unused
+    ) external payable onlyRebalancer {
+        IntentParams memory params = _decodeIntent(_message);
+
+
+        require(params.inputAsset == _token, Everclear_TokenMismatch());
+        require(_extractedAmount >= params.amount, BaseBridge_AmountMismatch());
+
+
+        uint256 destinationsLength = params.destinations.length;
+        require(destinationsLength > 0, Everclear_DestinationsLengthMismatch());
+
+
+        bool found;
+        for (uint256 i; i < destinationsLength; ++i) {
+            if (params.destinations[i] == _dstChainId) {
+                found = true;
+                break;
+            }
+        }
+        require(found, Everclear_DestinationNotValid());
+
+
+        if (_extractedAmount > params.amount) {
+            uint256 toReturn = _extractedAmount - params.amount;
+            IERC20(_token).safeTransfer(_market, toReturn);
+            emit RebalancingReturnedToMarket(_market, toReturn, _extractedAmount);
+        }
+
+
+        SafeApprove.safeApprove(params.inputAsset, address(everclearFeeAdapter), params.amount);
+        (bytes32 id,) = everclearFeeAdapter.newIntent(
+            params.destinations,
+            params.receiver,
+            params.inputAsset,
+            params.outputAsset,
+            params.amount,
+            params.maxFee,
+            params.ttl,
+            params.data,
+            params.feeParams
+        );
+        emit MsgSent(_dstChainId, _market, params.amount, id);
+    }
+```
+
+
+
+### Internal Pre-conditions
+
+1. Already does not validates `maxFee` and `ttl`
+
+### External Pre-conditions
+
+1. both `maxFee` and `tt`l being none zero
+
+### Attack Path
+
+1. A rebalancer calls the `sendMsg` to create a cross-chain intent with both the `maxFee` and `ttl` being none zero
+2. The _decodeIntent function decodes the message into IntentParams, extracting maxFee (type uint24) and ttl (type uint48).
+3. The FeeAdapter may interpret non-zero maxFee or ttl as a solver pathway intent, misrouting the intent to solvers instead of the netting system.
+4. Since the solver pathway is not supported at launch, the intent may fail to settle, or, if solvers are active, it may incur unexpected fees or settle on a suboptimal chain.
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Impact
+
+1. A potential DOS
+2.  Non-zero maxFee or ttl could route intents to the solver pathway, which is unsupported, leading to settlement failures or delays that disrupt liquidity rebalancing across supported chains (e.g., Ethereum, Base, Linea, Optimism, Unichain, Arbitrum).
+3. may lead to loss of funds.
+4. when maxFee is not enforced as 0 the everclear netting pathway will not be used and protocol will not be able to cut their cost up to 10x
+
+
+
+### PoC
+
+.
+
+### Mitigation
+
+enforce both fields are validated..
+```solidity
+  function sendMsg(
+    uint256 _extractedAmount,
+    address _market,
+    uint32 _dstChainId,
+    address _token,
+    bytes memory _message,
+    bytes memory // unused
+) external payable onlyRebalancer {
+    IntentParams memory params = _decodeIntent(_message);
+
+    require(params.inputAsset == _token, Everclear_TokenMismatch());
+    require(_extractedAmount >= params.amount, BaseBridge_AmountMismatch());
+    // Enforce netting pathway requirements
+    require(params.maxFee == 0, Everclear_InvalidMaxFee());
+    require(params.ttl == 0, Everclear_InvalidTtl());
+
+    uint256 destinationsLength = params.destinations.length;
+    require(destinationsLength > 0, Everclear_DestinationsLengthMismatch());
+
+    bool found;
+    for (uint256 i; i < destinationsLength; ++i) {
+        if (params.destinations[i] == _dstChainId) {
+            found = true;
+            break;
+        }
+    }
+    require(found, Everclear_DestinationNotValid());
+
+    if (_extractedAmount > params.amount) {
+        uint256 toReturn = _extractedAmount - params.amount;
+        IERC20(_token).safeTransfer(_market, toReturn);
+        emit RebalancingReturnedToMarket(_market, toReturn, _extractedAmount);
+    }
+
+    SafeApprove.safeApprove(params.inputAsset, address(everclearFeeAdapter), params.amount);
+    (bytes32 id,) = everclearFeeAdapter.newIntent(
+        params.destinations,
+        params.receiver,
+        params.inputAsset,
+        params.outputAsset,
+        params.amount,
+        params.maxFee, // Now guaranteed to be 0
+        params.ttl,    // Now guaranteed to be 0
+        params.data,
+        params.feeParams
+    );
+    emit MsgSent(_dstChainId, _market, params.amount, id);
+}
+```
+
+# Issue M-11: There is no endpoint for triggering `liquidateExternal` from extension chain to be executed by proof forwarder 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/370 
 
 ## Found by 
-ExtraCaterpillar, cergyk, mussucal
+ExtraCaterpillar, PeterSR, cergyk, mussucal
 
 ### Description
 
@@ -905,9 +1136,80 @@ The protocol team fixed this issue in the following PRs/commits:
 https://github.com/malda-protocol/malda-lending/pull/106/files
 
 
+**CergyK**
+
+Fix looks good. The liquidate method has been added to mTokenGateway and the selector is now handled in BatchSubmitter
 
 
-# Issue M-11: ```WrapAndSupply::wrapAndSupplyOnExtensionMarket```  preventes users from supplying on host 
+
+# Issue M-12: Rebalancer can drain market funds via excessive bridge fees 
+
+Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/686 
+
+## Found by 
+befree3x
+
+### Summary
+
+The `REBALANCER_EOA` role, which is considered semi-trusted, can drain funds from any market by specifying an arbitrarily high `maxFee` when initiating a bridge transfer through `EverclearBridge.sol`. This violates the trust assumption that the Rebalancer "cannot transfer user funds" and can only perform DDoS-style attacks, as it allows for a slow but steady extraction of value from the protocol's liquidity pools.
+
+### Root Cause
+
+The [`Rebalancer::sendMsg`](https://github.com/sherlock-audit/2025-07-malda/blob/main/malda-lending/src/rebalancer/Rebalancer.sol#L129) function allows the `REBALANCER_EOA` to pass an unchecked `_message` blob to the selected bridge contract. The [`EverclearBridge.sendMsg`](https://github.com/sherlock-audit/2025-07-malda/blob/main/malda-lending/src/rebalancer/bridges/EverclearBridge.sol#L79) function decodes this message to extract bridging parameters, including a `maxFee`. However, the bridge contract fails to validate this `maxFee` against any protocol-defined limit, instead passing it directly to the external [`everclearFeeAdapter.newIntent`](https://github.com/sherlock-audit/2025-07-malda/blob/main/malda-lending/src/rebalancer/bridges/EverclearBridge.sol#L111-L117) call. A malicious `REBALANCER_EOA` can therefore set this fee to an extreme value, causing the protocol to lose most of the bridged amount to fees.
+
+### Internal Pre-conditions
+
+- A market (e.g., `mWethHost`) has liquidity.
+- The `EverclearBridge` is whitelisted in the Rebalancer.
+
+### External Pre-conditions
+
+The `REBALANCER_EOA` private key is compromised or its operator acts maliciously.
+
+### Attack Path
+
+A malicious actor controlling the `REBALANCER_EOA` decides to drain funds from the `mWethHost` market.
+
+- The actor calls `Rebalancer.sendMsg`, targeting the `EverclearBridge` and `mWethHost`.
+- It provides a valid `_amount` to extract from the market, for example, `10 WETH`.
+- It crafts the `_message` parameter. Inside this message, which is decoded by `EverclearBridge`, it sets the amount to be bridged to 10 WETH but sets the `maxFee` parameter to an extremely high value, such as `9.9 WETH`.
+- The `Rebalancer` contract extracts `10 WETH` from `mWethHost` and calls `EverclearBridge.sendMsg`.
+- `EverclearBridge` decodes the message but performs no validation on the `maxFee`.
+- It calls `everclearFeeAdapter.newIntent`, passing along the malicious maxFee of `9.9 WETH`.
+- The external `Everclear` protocol executes the bridge transfer. It sends `10 WETH` but is authorized to take up to `9.9 WETH` as a fee, which is lost from the protocol. Only 0.1 WETH (or less) arrives at the destination market.
+- The attacker can repeat this process, draining a substantial portion of the market's liquidity over time through exorbitant fees.
+
+### Impact
+
+`Rebalancer` can cause permanent loss of protocol funds. This attack directly drains the liquidity provided by users from the market contracts. While the `REBALANCER_EOA` does not receive the funds directly, their action causes value to be extracted from the protocol and paid to third-party bridge relayers.
+
+
+### PoC
+
+_No response_
+
+### Mitigation
+
+The protocol should not blindly trust the `maxFee` parameter provided by the semi-trusted `REBALANCER_EOA`. A centrally-controlled, maximum allowable fee should be enforced.
+
+- The `GUARDIAN_BRIDGE` role (a more trusted admin) should set a maximum fee limit (e.g., as a percentage or basis points) on a per-token, per-chain basis within the `Rebalancer` or bridge contracts.
+- The `EverclearBridge.sendMsg` function must validate that the `maxFee` parameter decoded from the message does not exceed the configured maximum fee limit for that specific bridging route.
+
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/malda-protocol/malda-lending/pull/139
+
+
+**CergyK**
+
+Fix looks good
+
+
+
+# Issue M-13: ```WrapAndSupply::wrapAndSupplyOnExtensionMarket```  preventes users from supplying on host 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/741 
 
@@ -1002,14 +1304,140 @@ The protocol team fixed this issue in the following PRs/commits:
 https://github.com/malda-protocol/malda-lending/pull/111
 
 
+**CergyK**
+
+Changes requested on the fix
+
+**Barnadrot**
+
+changes have been added
 
 
-# Issue M-12: If Across Bridging fails, all funds intended for bridging will become locked 
+**CergyK**
+
+Fix looks good
+
+
+
+# Issue M-14: MixedPriceOracleV4.sol :: getUnderlyingPrice()/getPirce() will not work for some tokens because API3 and EO oracles return prices using different decimals, causing DOS scenario. 
+
+Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/945 
+
+## Found by 
+0xEkko, 0xfocusNode, 10ap17, Cybrid, HeckerTrieuTien, IvanFitro, KiroBrejka, PeterSR, SafetyBytes, ZanyBonzy, Ziusz, axelot, dan\_\_vinci, elolpuer, pashap9990
+
+### Summary
+
+`getUnderlyingPrice()`/`getPrice()` are used to obtain the price of the assets in USD. It does this by querying two different oracles, in this case, API3 and EO oracles. The problem is that these oracles return prices with different decimals, causing the function to always end up using the EO oracle’s price.
+
+
+### Root Cause
+
+[getUnderlyingPrice()](https://github.com/sherlock-audit/2025-07-malda/blob/798d00b879b8412ca4049ba09dba5ae42464cfe7/malda-lending/src/oracles/MixedPriceOracleV4.sol#L114) calls `_getPriceUSD()`, which in turn calls `_getLatestPrice()`, implemented as follows:
+```solidity
+function _getLatestPrice(string memory symbol, PriceConfig memory config)
+        internal
+        view
+        returns (uint256, uint256)
+    {
+        if (config.api3Feed == address(0) || config.eOracleFeed == address(0)) revert MixedPriceOracle_MissingFeed();
+
+        //get both prices
+@>      (, int256 apiV3Price,, uint256 apiV3UpdatedAt,) = IDefaultAdapter(config.api3Feed).latestRoundData();
+@>      (, int256 eOraclePrice,, uint256 eOracleUpdatedAt,) = IDefaultAdapter(config.eOracleFeed).latestRoundData(); 
+        // check if ApiV3 price is up to date
+        uint256 _staleness = _getStaleness(symbol);
+        bool apiV3Fresh = block.timestamp - apiV3UpdatedAt <= _staleness;
+
+        // check delta
+@>      uint256 delta = _absDiff(apiV3Price, eOraclePrice);
+        uint256 deltaBps = (delta * PRICE_DELTA_EXP) / uint256(eOraclePrice < 0 ? -eOraclePrice : eOraclePrice);
+
+        uint256 deltaSymbol = deltaPerSymbol[symbol];
+        if (deltaSymbol == 0) {
+            deltaSymbol = maxPriceDelta;
+        }
+
+        uint256 decimals;
+        uint256 uPrice;
+@>        if (!apiV3Fresh || deltaBps > deltaSymbol) {
+            require(block.timestamp - eOracleUpdatedAt < _staleness, MixedPriceOracle_eOracleStalePrice());
+            decimals = IDefaultAdapter(config.eOracleFeed).decimals();
+            uPrice = uint256(eOraclePrice);
+         } else {
+            require(block.timestamp - apiV3UpdatedAt < _staleness, MixedPriceOracle_ApiV3StalePrice());
+            decimals = IDefaultAdapter(config.api3Feed).decimals();
+            uPrice = uint256(apiV3Price);
+        }
+
+        return (uPrice, decimals);
+    }
+```
+As you can see, it obtains the price from both oracles and calculates the absolute difference using `_absDiff()`:
+```solidity
+ function _absDiff(int256 a, int256 b) internal pure returns (uint256) {
+        return uint256(a >= b ? a - b : b - a);
+    }
+```
+The problem is that the oracles do not return prices with the same decimals. According to the documentation, API3 always returns prices with [18 decimals](https://docs.api3.org/dapps/integration/contract-integration.html#using-value), while the EO oracle almost always returns prices with [8 decimals](https://docs.eo.app/docs/eprice/feeds-addresses/price-feed-addresses/linea).
+
+As a result, `_absDiff()` ends up calculating the difference between an 18-decimal price and an 8-decimal price, producing an incorrect delta. This delta will be disproportionately large—essentially because `18 decimals - 8 decimals ≈ 18 decimals`—causing the first `if` condition to be triggered almost every time (because `_delta` is capped by `PRICE_DELTA_EXP = 1e5`). This leads to always selecting the EO oracle’s price, effectively making the dual-oracle setup useless.
+
+Always entering the first `if` is problematic because if `apiV3Fresh = true` (meaning the API3 price is not stale) but the EO oracle price **is** stale, the transaction will still revert with `MixedPriceOracle_eOracleStalePrice()`. This happens even when the prices themselves are correct, simply because `deltaBps > deltaSymbol` is true due to the decimal mismatch. As a result, it creates a DOS for obtaining the price, when in reality the price could be retrieved using API3 orcale if the decimals from both oracles were adjusted correctly.
+
+### Internal Pre-conditions
+
+None.
+
+### External Pre-conditions
+
+API decimals > EO decimals or vice versa.
+API price is fresh, and EO price is stale.
+
+### Attack Path
+
+None.
+
+### Impact
+
+ThThe price obtained using `getUnderlyingPrice()` will always come from the EO oracle. If the EO price is stale while the API3 price is fresh, the price cannot be obtained, creating a denial-of-service (DoS) scenario.
+
+### PoC
+
+To illustrate the problem, let’s use the [wBTC / USD](https://docs.eo.app/docs/eprice/feeds-addresses/price-feed-addresses/linea) pair on the Linea chain, which is in scope for the contest. In the EO oracle, the price is returned with 8 decimals, while in API3 it’s returned with 18 decimals.
+
+1. `getUnderlyingPrice()` is called for an mToken whose underlying asset is wBTC.
+2. The EO oracle price is `120000000000` (8 decimals), and the API3 oracle price is `120000000000000000000000` (18 decimals). The API3 price is fresh, while the EO oracle price is stale.
+3. `_absDiff()` is calculated as `120000000000000000000000 - 120000000000 ≈ 120000000000000000000000`, producing a very large delta.
+4. Because `deltaBps` is much greater than `deltaSymbol`, the first `if` condition is triggered, selecting the EO oracle’s price. However, this reverts because the EO price is stale.
+
+If `deltaBps` were calculated correctly, the `else` branch would be taken, and the fresh API3 price would be used. In the current implementation, this creates a denial of service (DoS) scenario where the price cannot be obtained.
+
+### Mitigation
+
+To solve the problem, normalize the decimals from both oracles before calculating `_absDiff()`, ensuring the `deltaBps` is computed correctly.
+
+
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/malda-protocol/malda-lending/pull/134
+
+
+**CergyK**
+
+Fix looks good, as already mentioned in \#1305
+
+
+
+# Issue M-15: If Across Bridging fails, all funds intended for bridging will become locked 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/1309 
 
 ## Found by 
-0xapple, 10ap17, ExtraCaterpillar, SafetyBytes, cergyk
+0xapple, 10ap17, ExtraCaterpillar, SafetyBytes, ZeroTrust, cergyk
 
 ### Summary
 
@@ -1079,144 +1507,37 @@ _No response_
 
 Consider adding helper function in Rebalancer contract, that could rescue returned tokens to the intended market.
 
-# Issue M-13: Malicious relayer can spoof the message 
+## Discussion
 
-Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/1325 
+**sherlock-admin2**
 
-## Found by 
-10ap17, SarveshLimaye
-
-### Summary
-
-The handleV3AcrossMessage function does not sufficiently validate its parameters, allowing malicious relayers to spoof messages and cause unintended interactions.
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/malda-protocol/malda-lending/pull/126
 
 
+**CergyK**
 
-### Root Cause
+Fix looks good
 
-The handleV3AcrossMessage function validate function parameters enough. 
-According to the Across documentation, the validity of parameters sent to handleV3AcrossMessage is not guaranteed. As a result, since a relayer (malicious) can call handleV3AcrossMessage with any arguments, all parameters passed to the function should be treated as untrusted.
+**Barnadrot**
 
-```solidity
-function handleV3AcrossMessage(
-        address tokenSent,
-        uint256 amount,
-        address, // relayer is unused
-        bytes memory message
-    ) external onlySpokePool nonReentrant {
-        address market = abi.decode(message, (address));
-        address _underlying = ImTokenMinimal(market).underlying();
-        require(_underlying == tokenSent, AcrossBridge_TokenMismatch());
-        if (amount > 0) {
-            IERC20(tokenSent).safeTransfer(market, amount);
-        }
+Added the suggested changes, good to merge now? 
 
-        emit Rebalanced(market, amount);
-    }
-```
-https://github.com/sherlock-audit/2025-07-malda/blob/798d00b879b8412ca4049ba09dba5ae42464cfe7/malda-lending/src/rebalancer/bridges/AcrossBridge.sol#L139
 
-### Internal Pre-conditions
+**CergyK**
 
-/
+> Added the suggested changes, good to merge now?
 
-### External Pre-conditions
-
-/
-
-### Attack Path
-
-- A bridging process for 1000 USDT tokens from Ethereum to Optimism is initiated.  
-- A malicious relayer notices that handleV3AcrossMessage on the destination chain does not sufficiently verify the integrity of parameters.  
-- The malicious relayer creates a fake market that, on an underlying call, returns the same address as the bridged asset.  
-- The handleV3AcrossMessage function is called on the destination chain with valid parameters for amount and token (matching the Rebalancer’s specifications), but with a modified message that encodes the address of the malicious market deployed by the relayer.  
-- Due to insufficient validation, the malicious relayer can steal the entire amount intended for rebalancing.
+Yes good to merge
 
 
 
-### Impact
-
-Malicious relayers can spoof messages, enabling unintended interactions and potentially stealing funds intended for rebalancing.
-
-
-
-### PoC
-
-_No response_
-
-### Mitigation
-
-Consider passing the message parameter with signed data (including the amount and the market intended to receive the bridged asset) when calling depositV3Now. On the destination chain, verify the signature and ensure that the parameters (market and amount) are valid and match the intended values.
-
-
-
-# Issue M-14: Last redeemers could suffer loss because of the rebalancing fees 
-
-Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/1454 
-
-## Found by 
-0xapple, 10ap17, ExtraCaterpillar, SafetyBytes, ZeroTrust, elolpuer
-
-### Summary
-
-/
-
-### Root Cause
-
-When rebalancing the Rebalancer withdraws the amount to bridge directly from the market. After the amount gets bridged, the received amount represents the initial_amount - bridging_fees (if we check the AcrossBridge thats how its done), and that amount gets directly transferred to the market(without updating totalUnderlying to reflect the amount that was lost due to the fee). Because of that whenever the rebalancing is happening the protocol will be left with less and less underlying amount (without updating the totalUnderlying -> which would adjust the exchange rate ). Since the exchangeRate would not be updated the market will think it has enough underlying for everyone to withdraw.(which is not the case)
-
-```solidity
-IAcrossSpokePoolV3(acrossSpokePool).depositV3Now( // no need for `msg.value`; fee is taken from amount
-            msg.sender, //depositor
-            address(this), //recipient
-            _token,
-            address(0), //outputToken is automatically resolved to the same token on destination
-            msgData.inputAmount,
-            msgData.outputAmount, //outputAmount should be set as the inputAmount - relay fees; use Across API
-            uint256(_dstChainId),
-            msgData.relayer, //exclusiveRelayer
-            msgData.deadline, //fillDeadline
-            msgData.exclusivityDeadline, //can use Across API/suggested-fees or 0 to disable
-            abi.encode(_market)
-        );
-```
-
-https://github.com/sherlock-audit/2025-07-malda/blob/798d00b879b8412ca4049ba09dba5ae42464cfe7/malda-lending/src/rebalancer/bridges/AcrossBridge.sol#L167
-
-### Internal Pre-conditions
-
-/
-
-### External Pre-conditions
-
-/
-
-### Attack Path
-
-- rebalancing is done constantly to adjust for the borrowing need of the markets
-- when ever the rebalancing is done the totalUnderlying gets smaller for the bridging fee
-- eventually that amount would accumulate (total amount spent on bridging fee) and it will even be bigger than protocol reserves( which is the only way to cover the loss in some way)
-- when it become big enough the loss for the bridging fees will be take by users that redeem last (depending on how big the amount is ,depends how many users would be affected). 
-
-### Impact
-
-Last redeemer/s could be hit with the whole amount of the underlying tokens that was spent on fees, resulting in inability for users/s to withdraw due to the shortage of underlying token that is present in the contract.
-Beside this impact this could also affect the rebalancing system of the protocol, since totalUnderlying in the market will be reflected incorrectly(will be bigger than it is), which could indicate the system that the rebalancing is not needed for that market.
-
-### PoC
-
-_No response_
-
-### Mitigation
-
-_No response_
-
-# Issue M-15: Bridges don't support all of the listed assets 
+# Issue M-16: Bridges don't support all of the listed assets 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/1477 
 
 ## Found by 
-10ap17
+10ap17, holtzzx
 
 ### Summary
 
