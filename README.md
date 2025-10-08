@@ -1072,6 +1072,16 @@ enforce both fields are validated..
 }
 ```
 
+## Discussion
+
+**sherlock-admin2**
+
+The protocol team fixed this issue in the following PRs/commits:
+https://github.com/malda-protocol/malda-lending/pull/143
+
+
+
+
 # Issue M-11: There is no endpoint for triggering `liquidateExternal` from extension chain to be executed by proof forwarder 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/370 
