@@ -1,3 +1,13 @@
+## Français
+
+Archive de constats d’audit du concours Malda de juillet 2025. Exemple : utiliser les rapports pour comprendre les vulnérabilités alors documentées ; ils ne garantissent pas l’état actuel du code.
+
+## English
+
+Archive of findings from the July 2025 Malda audit contest. Example: use the reports to understand vulnerabilities documented at that time; they do not guarantee the current state of the code.
+
+---
+
 # Issue H-1: Rebalancer can steal funds from markets by sending to custom receiver through Everclear Bridge 
 
 Source: https://github.com/sherlock-audit/2025-07-malda-judging/issues/124 
